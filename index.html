@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unslashed</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <form action="">
+            <input type="text" name="" id="img_search">
+            <input type="submit" name="" id="search_btn">
+        </form>
+
+        <div class="img_display">
+
+        </div>
+    </div>
+
+    <script>
+
+        const Access_key = "LRA3l6PZIHlNUrazDtYSgX7OnJnpWrYtQJgQlkPWfLQ"
+        const Secrect_Key = "FZzMz1l0feERQ9xw8jKN8a9zmCP7cBLeCwvdq68wIsk"
+        const search_btn = document.getElementById("search_btn")
+        const base_url = "https://api.unsplash.com/photos"
+
+
+        search_btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            console.log("searched")
+            let search = document.getElementById("img_search").value;
+            console.log(search)
+            xhr = new XMLHttpRequest()
+            xhr.onreadystatechange = function(){
+                console.log("request sent")
+                if(this.status == 200)
+                console.log(this.responseText)
+            }
+            xhr.open("GET", base_url+`/?client_id=${Access_key}`,true)
+            // xhr.setRequestHeader('Authorization', `${Access_key} ${Secrect_Key}`)
+            xhr.send()
+        })
+    </script>
+</body>
+
+</html>
