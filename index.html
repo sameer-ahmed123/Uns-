@@ -15,8 +15,8 @@
             <input type="submit" name="" id="search_btn">
         </form>
 
-        <div class="img_display">
-
+        <div class="img_display_wrapper">
+            <img src="" id="img_display" alt="">
         </div>
     </div>
 
@@ -24,24 +24,39 @@
 
         const Access_key = "LRA3l6PZIHlNUrazDtYSgX7OnJnpWrYtQJgQlkPWfLQ"
         const Secrect_Key = "FZzMz1l0feERQ9xw8jKN8a9zmCP7cBLeCwvdq68wIsk"
+
+        const authorize = `?client_id=${Access_key}`
         const search_btn = document.getElementById("search_btn")
         const base_url = "https://api.unsplash.com/photos"
-
+        const Random_img_url = base_url + "/random" + authorize
+        let endpointUrl = base_url + `?client_id=${Access_key}`
+        let img_display = document.getElementById("img_display")
 
         search_btn.addEventListener("click", (e) => {
             e.preventDefault();
-            console.log("searched")
-            let search = document.getElementById("img_search").value;
-            console.log(search)
-            xhr = new XMLHttpRequest()
-            xhr.onreadystatechange = function(){
-                console.log("request sent")
-                if(this.status == 200)
-                console.log(this.responseText)
-            }
-            xhr.open("GET", base_url+`/?client_id=${Access_key}`,true)
-            // xhr.setRequestHeader('Authorization', `${Access_key} ${Secrect_Key}`)
-            xhr.send()
+            // console.log("searched")
+            // let search = document.getElementById("img_search").value;
+            // console.log(search)
+            // xhr = new XMLHttpRequest()
+            // xhr.onreadystatechange = function(){
+            //     console.log("request sent")
+            //     if(this.status == 200)
+            //     console.log(this.responseText)
+            // }
+            // xhr.open("GET", base_url+`/?client_id=${Access_key}`,true)
+            // // xhr.setRequestHeader('Authorization', `${Access_key} ${Secrect_Key}`)
+            // xhr.send()
+
+            fetch(Random_img_url)
+                .then(function (response) {
+                    return response.json()
+                }).then(function (jsonResponse) {
+                    console.log(jsonResponse)
+                    console.log(jsonResponse.alt_description)
+                    console.log(jsonResponse.urls.regular)
+                    img_url = jsonResponse.urls.regular
+                    img_display.src = img_url
+                })
         })
     </script>
 </body>
